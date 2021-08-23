@@ -43,6 +43,7 @@ function getDateInAllFormats(date) {
 function checkPalindromeForAllDateFormats(date) {
   var dateFormatList = getDateInAllFormats(date);
   var palindromeList = [];
+  
 
   for (var i = 0; i < dateFormatList.length; i++) {
     var result = isStringPalindrome(dateFormatList[i]);
@@ -149,24 +150,6 @@ function getPreviousDate(date) {
   };
 }
 
-function getPreviousPalindromeDate(date) {
-  var previousDate = getPreviousDate(date);
-  var ctr = 0;
-
-  while (1) {
-    ctr++;
-    var dateStr = getDateAsString(previousDate);
-    var resultList = checkPalindromeForAllDateFormats(dateStr);
-
-    for (let i = 0; i < resultList.length; i++) {
-      if (resultList[i]) {
-        return [ctr, previousDate];
-      }
-    }
-    previousDate = getPreviousDate(previousDate);
-  }
-}
-
 var bdayInput = document.querySelector("#bday-input");
 var showBtn = document.querySelector("#show-btn");
 var resultDiv = document.querySelector("#result");
@@ -198,14 +181,8 @@ function clickHandler(e) {
     }
 
     if (!isPalindrome) {
-      const [ctr1, nextDate] = getNextPalindromeDate(date);
-      const [ctr2, prevDate] = getPreviousPalindromeDate(date);
-
-      if (ctr1 > ctr2) {
-        resultDiv.innerHTML = `The nearest Palindrome Date is <span class="dateHighlight">${prevDate.day}-${prevDate.month}-${prevDate.year}</span>, you missed by <span class="dateHighlight">${ctr2}</span> days.`;
-      } else {
-        resultDiv.innerHTML = `The nearest Palindrome Date is <span class="dateHighlight">${nextDate.day}-${nextDate.month}-${nextDate.year}</span>, you missed by <span class="dateHighlight">${ctr1}</span> days.`;
-      }
+      const [ctr, nextDate] = getNextPalindromeDate(date);
+      resultDiv.innerHTML = `The nearest Palindrome Date is <span class="dateHighlight">${nextDate.day}-${nextDate.month}-${nextDate.year}</span>, you missed by <span class="dateHighlight">${ctr}</span> days.`;
     } else {
       resultDiv.innerHTML = 'Yay! Your birthday is <span class="dateHighlight">Palindrome!</span> 🤩';
     }
