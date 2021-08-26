@@ -118,38 +118,6 @@ function getNextPalindromeDate(date) {
   }
 }
 
-function getPreviousDate(date) {
-  var day = date.day - 1;
-  var month = date.month;
-  var year = date.year;
-
-  var daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-  if (day === 0) {
-    month--;
-
-    if (month === 0) {
-      month = 12;
-      day = 31;
-      year--;
-    } else if (month === 2) {
-      if (isLeapYear(year)) {
-        day = 29;
-      } else {
-        day = 28;
-      }
-    } else {
-      day = daysInMonth[month - 1];
-    }
-  }
-
-  return {
-    day: day,
-    month: month,
-    year: year,
-  };
-}
-
 var bdayInput = document.querySelector("#bday-input");
 var showBtn = document.querySelector("#show-btn");
 var resultDiv = document.querySelector("#result");
@@ -182,9 +150,9 @@ function clickHandler(e) {
 
     if (!isPalindrome) {
       const [ctr, nextDate] = getNextPalindromeDate(date);
-      resultDiv.innerHTML = `The nearest Palindrome Date is <span class="dateHighlight">${nextDate.day}-${nextDate.month}-${nextDate.year}</span>, you missed by <span class="dateHighlight">${ctr}</span> days.`;
+      resultDiv.innerHTML = `The nearest Palindrome Date is <span class="dateHighlight">${nextDate.day}-${nextDate.month}-${nextDate.year}</span>, You missed by <span class="dateHighlight">${ctr}</span> days.`;
     } else {
-      resultDiv.innerHTML = 'Yay! Your birthday is <span class="dateHighlight">Palindrome!</span> 🤩';
+      resultDiv.innerHTML = 'Yay! Your Birthday is <span class="dateHighlight">Palindrome!</span> 🤩';
     }
   }
 }
